@@ -1,9 +1,9 @@
 # Sure, here’s a basic roadmap for your Dōbutsu shōgi game project in Godot:
 
 
-1. Design the Game Structure: Plan out the structure of your game, including the nodes and their hierarchy. You can refer to the structure I provided earlier. [Done]
+1. Design the Game Structure: Plan out the structure of your game, including the nodes and their hierarchy. You can refer to the structure I provided earlier. [x]
 
-2. Create the Game Board: Start by creating the game board. You can use a GridMap node for this.
+2. Create the Game Board: Start by creating the game board. You can use a GridMap node for this.[x]
 
 3. Create the Game Pieces: Next, create the game pieces. Each piece should be a RigidBody with a MeshInstance for graphics and a CollisionShape for detecting clicks or touches.
 

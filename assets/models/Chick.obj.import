@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bkvsl3nxqq1bc"
+path="res://.godot/imported/Chick.obj-478611e1cc95303e81f3f32c3a778cbe.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Chick.obj-478611e1cc95303e81f3f32c3a778cbe.mesh"]
+
+source_file="res://assets/models/Chick.obj"
+dest_files=["res://.godot/imported/Chick.obj-478611e1cc95303e81f3f32c3a778cbe.mesh", "res://.godot/imported/Chick.obj-478611e1cc95303e81f3f32c3a778cbe.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

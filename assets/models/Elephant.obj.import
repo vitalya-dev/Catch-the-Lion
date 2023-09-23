@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d2k0mntj66255"
+path="res://.godot/imported/Elephant.obj-fb6a6bc5666d183dfb89b67ec0b54caa.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Elephant.obj-fb6a6bc5666d183dfb89b67ec0b54caa.mesh"]
+
+source_file="res://assets/models/Elephant.obj"
+dest_files=["res://.godot/imported/Elephant.obj-fb6a6bc5666d183dfb89b67ec0b54caa.mesh", "res://.godot/imported/Elephant.obj-fb6a6bc5666d183dfb89b67ec0b54caa.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

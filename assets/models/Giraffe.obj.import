@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ou0exqxnkddi"
+path="res://.godot/imported/Giraffe.obj-12b7ca948a3a5e2d37671a036e6251bc.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Giraffe.obj-12b7ca948a3a5e2d37671a036e6251bc.mesh"]
+
+source_file="res://assets/models/Giraffe.obj"
+dest_files=["res://.godot/imported/Giraffe.obj-12b7ca948a3a5e2d37671a036e6251bc.mesh", "res://.godot/imported/Giraffe.obj-12b7ca948a3a5e2d37671a036e6251bc.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

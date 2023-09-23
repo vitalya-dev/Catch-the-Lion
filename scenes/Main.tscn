@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://b7hgg3b2gex8p"]
 
-[ext_resource type="Script" path="res://scenes/Main.gd" id="1_2phso"]
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_2phso"]
 [ext_resource type="ArrayMesh" uid="uid://bkvsl3nxqq1bc" path="res://assets/models/Chick.obj" id="1_l1hwv"]
 [ext_resource type="Script" path="res://scripts/Board.gd" id="2_ca0ym"]
 [ext_resource type="ArrayMesh" uid="uid://d2k0mntj66255" path="res://assets/models/Elephant.obj" id="2_e8klm"]

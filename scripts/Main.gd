@@ -11,7 +11,17 @@ func _ready():
 		piece.piece_clicked.connect(_on_piece_clicked)
 
 func _on_board_clicked(grid_pos):
-	print(grid_pos)
+	if selected_piece:
+		move_selected_piece_to_grid_position(grid_pos)
+		_on_piece_clicked(selected_piece)
+
+func move_selected_piece_to_grid_position(grid_pos):
+	var local_pos = Vector3(grid_pos.x - 1, 0, grid_pos.y - 1.5)
+	var global_pos = $Board.to_global(local_pos)
+	selected_piece.global_transform.origin.x = global_pos.x
+	selected_piece.global_transform.origin.z = global_pos.z
+	selected_piece.transform.origin.y = 0
+
 
 func _on_piece_clicked(piece):
 	if selected_piece:

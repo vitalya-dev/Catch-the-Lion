@@ -1,13 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7hgg3b2gex8p"]
+[gd_scene load_steps=18 format=3 uid="uid://b7hgg3b2gex8p"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_2phso"]
 [ext_resource type="ArrayMesh" uid="uid://bkvsl3nxqq1bc" path="res://assets/models/Chick.obj" id="1_l1hwv"]
 [ext_resource type="Script" path="res://scripts/Board.gd" id="2_ca0ym"]
 [ext_resource type="ArrayMesh" uid="uid://d2k0mntj66255" path="res://assets/models/Elephant.obj" id="2_e8klm"]
 [ext_resource type="ArrayMesh" uid="uid://0gvwp21xg4qk" path="res://assets/models/Board.obj" id="3_rooy4"]
-[ext_resource type="Script" path="res://scripts/Piece.gd" id="3_udec2"]
+[ext_resource type="Script" path="res://scripts/Chick.gd" id="4_8tvbj"]
 [ext_resource type="ArrayMesh" uid="uid://fhwe4mvund8p" path="res://assets/models/Lion.obj" id="4_13474"]
 [ext_resource type="ArrayMesh" uid="uid://ou0exqxnkddi" path="res://assets/models/Giraffe.obj" id="5_bn2c8"]
+[ext_resource type="Script" path="res://scripts/Elephant.gd" id="6_l0043"]
+[ext_resource type="Script" path="res://scripts/Lion.gd" id="8_e26gx"]
+[ext_resource type="Script" path="res://scripts/Giraffe.gd" id="9_qlqf1"]
 
 [sub_resource type="Environment" id="Environment_r2c78"]
 background_mode = 1
@@ -56,7 +59,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
 [node name="Chick" type="Area3D" parent="Pieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
-script = ExtResource("3_udec2")
+script = ExtResource("4_8tvbj")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Pieces/Chick"]
 mesh = ExtResource("1_l1hwv")
@@ -67,7 +70,7 @@ shape = SubResource("ConvexPolygonShape3D_4yyfy")
 
 [node name="Elephant" type="Area3D" parent="Pieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1.5)
-script = ExtResource("3_udec2")
+script = ExtResource("6_l0043")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Pieces/Elephant"]
 mesh = ExtResource("2_e8klm")
@@ -78,7 +81,7 @@ shape = SubResource("ConvexPolygonShape3D_vwq1j")
 
 [node name="Lion" type="Area3D" parent="Pieces"]
 transform = Transform3D(0.999962, -0.00872654, 0, 0.00872654, 0.999962, 0, 0, 0, 1, 0, 0, 1.5)
-script = ExtResource("3_udec2")
+script = ExtResource("8_e26gx")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Pieces/Lion"]
 mesh = ExtResource("4_13474")
@@ -89,7 +92,7 @@ shape = SubResource("ConvexPolygonShape3D_kussy")
 
 [node name="Giraffe" type="Area3D" parent="Pieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1.5)
-script = ExtResource("3_udec2")
+script = ExtResource("9_qlqf1")
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Pieces/Giraffe"]
 mesh = ExtResource("5_bn2c8")

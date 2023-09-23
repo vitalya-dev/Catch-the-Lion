@@ -12,12 +12,14 @@ func _ready():
 
 func _on_board_clicked(grid_pos):
 	if selected_piece:
-		move_selected_piece_to_grid_position(grid_pos)
-		_on_piece_clicked(selected_piece)
+		var piece_pos = $Board.get_piece_grid_position(selected_piece)
+		var move = grid_pos - piece_pos
+		if move in selected_piece.get_possible_moves():
+			move_selected_piece_to_grid_position(grid_pos)
+			_on_piece_clicked(selected_piece)
 
 func move_selected_piece_to_grid_position(grid_pos):
-	var local_pos = Vector3(grid_pos.x - 1, 0, grid_pos.y - 1.5)
-	var global_pos = $Board.to_global(local_pos)
+	var global_pos = $Board.grid_to_global(grid_pos)
 	selected_piece.global_transform.origin.x = global_pos.x
 	selected_piece.global_transform.origin.z = global_pos.z
 	selected_piece.transform.origin.y = 0

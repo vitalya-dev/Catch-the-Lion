@@ -15,7 +15,7 @@ var current_turn = Piece.Player.BLACK
 func _ready():
 	print_tree_pretty()
 	board.board_clicked.connect(_on_board_clicked)
-	for piece in get_node("Board/Pieces").get_children():
+	for piece in board.get_pieces():
 		piece.piece_clicked.connect(_on_piece_clicked)
 		piece.set_input_ray_pickable(piece.player == current_turn)
 
@@ -25,23 +25,20 @@ func _on_board_clicked(grid_pos):
 		var move = grid_pos - piece_pos
 		if move in selected_piece.get_possible_moves():
 			var destination_piece = board.get_piece_at_grid_position(grid_pos)
+			if destination_piece and destination_piece.player == selected_piece.player:
+				print("Illegal move. Grid position already occupied by our player")
+				return
 			if destination_piece:
-				if destination_piece.player == selected_piece.player:
-					print("Illegal move. Grid position already occupied by our player")
-				else:
-					var captured_pieces_area = captured_pieces_area_1 if selected_piece.player == 1 else captured_pieces_area_2
-					captured_pieces_area.add_piece(destination_piece)
-					move_selected_piece_to_grid_position(grid_pos)
-					_on_piece_clicked(selected_piece)
-					current_turn = Piece.Player.BLACK if current_turn == Piece.Player.WHITE else Piece.Player.WHITE
-					for piece in board.get_node("Pieces").get_children():
-						piece.set_input_ray_pickable(piece.player == current_turn)
-			else:
-				move_selected_piece_to_grid_position(grid_pos)
-				_on_piece_clicked(selected_piece)
-				current_turn = Piece.Player.BLACK if current_turn == Piece.Player.WHITE else Piece.Player.WHITE
-				for piece in board.get_node("Pieces").get_children():
-					piece.set_input_ray_pickable(piece.player == current_turn)
+				var captured_pieces_area = captured_pieces_area_1 if selected_piece.player == 1 else captured_pieces_area_2
+				captured_pieces_area.add_piece(destination_piece)
+			move_selected_piece_to_grid_position(grid_pos)
+			_on_piece_clicked(selected_piece)
+			switch_turns()
+
+func switch_turns():
+	current_turn = Piece.Player.BLACK if current_turn == Piece.Player.WHITE else Piece.Player.WHITE
+	for piece in board.get_pieces():
+		piece.set_input_ray_pickable(piece.player == current_turn)
 
 func move_selected_piece_to_grid_position(grid_pos):
 	var global_pos = board.grid_to_global(grid_pos)

@@ -35,6 +35,9 @@ func get_piece_at_grid_position(grid_pos):
 	# If no piece is found, return null
 	return null
 
+func get_pieces():
+	return get_node("Pieces").get_children()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

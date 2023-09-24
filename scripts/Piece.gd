@@ -29,5 +29,8 @@ func _on_piece_clicked(camera, event, position, normal, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		piece_clicked.emit(self)
 
+func set_input_ray_pickable(enabled):
+	input_ray_pickable = enabled
+
 func get_possible_moves():
 	return [Vector2(0, 0)]

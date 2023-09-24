@@ -17,7 +17,7 @@ func _on_board_clicked(grid_pos):
 		if move in selected_piece.get_possible_moves():
 			var destination_piece = $Board.get_piece_at_grid_position(grid_pos)
 			if destination_piece and destination_piece.player == selected_piece.player:
-				print("Illegal moves. Occupied by our player")
+				print("Illegal move. Grid position already occupied by our player")
 			else:
 				move_selected_piece_to_grid_position(grid_pos)
 				_on_piece_clicked(selected_piece)

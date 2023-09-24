@@ -8,6 +8,17 @@
 3. Create the Game Pieces: Next, create the game pieces. Each piece should be a RigidBody with a MeshInstance for graphics and a CollisionShape for detecting clicks or touches. [Done]
 
 4. Implement Piece Movement: Implement the logic for moving the pieces according to the rules of Dōbutsu shōgi. [ ]
+	1. Define Piece Movements: Each piece in Dōbutsu shōgi has its own unique movement. Start by defining these movements. For example, the chick can only move forward, the elephant can move diagonally, and so on. [Done]
+
+	2. Create Movement Functions: Write functions for each type of movement. These functions should take a piece and a destination as input, and move the piece to the destination if the move is legal. [Done]
+
+	3. Check for Legal Moves: Before a piece is moved, check if the move is legal. This involves checking if the destination is within the board and if the piece is allowed to move in that manner. [Done]
+
+	4. Handle Piece Capture: If a piece moves to a square occupied by an opponent’s piece, that piece is captured and removed from the board. Implement this rule in your movement functions.
+
+	5. Implement Promotion: In Dōbutsu shōgi, a chick is promoted to a hen when it moves to the farthest row. The hen can move one square in any direction. Implement this rule in your game.
+
+	6. Link Movements to User Input: Finally, link your movement functions to user input. When a player clicks or taps on a piece and then on a destination square, the game should move the piece accordingly.
 
 5. Implement Game Logic: Implement the game logic, including turn handling and win/loss conditions. [ ]
 

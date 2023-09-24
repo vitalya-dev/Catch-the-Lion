@@ -9,7 +9,7 @@ var selected_piece = null
 @onready var captured_pieces_area_2 = $CapturedPieces/Player2
 
 
-var current_turn = Piece.Player.BLACK
+var current_turn = Piece.Player.PLAYER_2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,15 +29,19 @@ func _on_board_clicked(grid_pos):
 				print("Illegal move. Grid position already occupied by our player")
 				return
 			if destination_piece:
-				var captured_pieces_area = captured_pieces_area_1 if selected_piece.player == 1 else captured_pieces_area_2
+				var captured_pieces_area = captured_pieces_area_1 if selected_piece.player == Piece.Player.PLAYER_1 else captured_pieces_area_2
 				captured_pieces_area.add_piece(destination_piece)
 			move_selected_piece_to_grid_position(grid_pos)
 			_on_piece_clicked(selected_piece)
 			switch_turns()
 
 func switch_turns():
-	current_turn = Piece.Player.BLACK if current_turn == Piece.Player.WHITE else Piece.Player.WHITE
+	current_turn = Piece.Player.PLAYER_2 if current_turn == Piece.Player.PLAYER_1 else Piece.Player.PLAYER_1
 	for piece in board.get_pieces():
+		piece.set_input_ray_pickable(piece.player == current_turn)
+	for piece in captured_pieces_area_1.get_children():
+		piece.set_input_ray_pickable(piece.player == current_turn)
+	for piece in captured_pieces_area_2.get_children():
 		piece.set_input_ray_pickable(piece.player == current_turn)
 
 func move_selected_piece_to_grid_position(grid_pos):

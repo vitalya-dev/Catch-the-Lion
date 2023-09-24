@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b7hgg3b2gex8p"]
+[gd_scene load_steps=31 format=3 uid="uid://b7hgg3b2gex8p"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_2phso"]
 [ext_resource type="ArrayMesh" uid="uid://bkvsl3nxqq1bc" path="res://assets/models/Chick.obj" id="1_l1hwv"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scripts/Giraffe.gd" id="9_qlqf1"]
 [ext_resource type="Texture2D" uid="uid://dh4vr1tq82d5" path="res://assets/images/LionTexture.png" id="12_3852g"]
 [ext_resource type="Texture2D" uid="uid://hrw3kh7gtq6r" path="res://assets/images/GiraffeTexture.png" id="15_pj6xp"]
+[ext_resource type="Script" path="res://scripts/CapturedPieceArea.gd" id="16_24aqx"]
 
 [sub_resource type="Environment" id="Environment_r2c78"]
 background_mode = 1
@@ -232,3 +233,14 @@ skeleton = NodePath("../../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Pieces/Giraffe2"]
 shape = SubResource("ConvexPolygonShape3D_neuns")
+
+[node name="CapturedPieces" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="1" type="Node3D" parent="CapturedPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -0.5)
+script = ExtResource("16_24aqx")
+
+[node name="-1" type="Node3D" parent="CapturedPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0.5)
+script = ExtResource("16_24aqx")

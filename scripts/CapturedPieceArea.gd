@@ -26,4 +26,5 @@ func layout_pieces():
 		var y = i / grid_size
 		piece.transform.origin.x = x * -1 * piece.player
 		piece.transform.origin.z = y * -1 * piece.player
+		piece.transform.origin.y = 0
 

@@ -38,6 +38,9 @@ func get_piece_at_grid_position(grid_pos):
 func get_pieces():
 	return get_node("Pieces").get_children()
 
+func add_piece(piece):
+	piece.get_parent().remove_child(piece)
+	get_node("Pieces").add_child(piece)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

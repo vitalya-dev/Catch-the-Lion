@@ -9,8 +9,8 @@ var mesh: MeshInstance3D
 var original_color: Color
 
 enum Player {
-    BLACK = -1,
-    WHITE = 1
+	BLACK = -1,
+	WHITE = 1
 }
 
 var player: int

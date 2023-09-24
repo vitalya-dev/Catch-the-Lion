@@ -237,10 +237,10 @@ shape = SubResource("ConvexPolygonShape3D_neuns")
 [node name="CapturedPieces" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
-[node name="1" type="Node3D" parent="CapturedPieces"]
+[node name="Player1" type="Node3D" parent="CapturedPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -0.5)
 script = ExtResource("16_24aqx")
 
-[node name="-1" type="Node3D" parent="CapturedPieces"]
+[node name="Player2" type="Node3D" parent="CapturedPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0.5)
 script = ExtResource("16_24aqx")

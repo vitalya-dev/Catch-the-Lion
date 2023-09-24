@@ -24,6 +24,18 @@ func grid_to_global(grid_pos):
 	var local_pos = Vector3(grid_pos.x - 1, 0, grid_pos.y - 1.5)
 	return to_global(local_pos)
 
+func get_piece_at_grid_position(grid_pos):
+	# Loop through all the pieces on the board
+	for piece in get_node("Pieces").get_children():
+		# Get the grid position of each piece
+		var piece_grid_pos = get_piece_grid_position(piece)
+		# If the grid position matches the input, return the piece
+		if piece_grid_pos == grid_pos:
+			return piece
+	# If no piece is found, return null
+	return null
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

@@ -54,49 +54,49 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Board"]
 shape = SubResource("ConvexPolygonShape3D_43vci")
 
-[node name="Pieces" type="Node3D" parent="."]
+[node name="Pieces" type="Node3D" parent="Board"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
-[node name="Chick" type="Area3D" parent="Pieces"]
+[node name="Chick" type="Area3D" parent="Board/Pieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 script = ExtResource("4_8tvbj")
 
-[node name="MeshInstance" type="MeshInstance3D" parent="Pieces/Chick"]
+[node name="MeshInstance" type="MeshInstance3D" parent="Board/Pieces/Chick"]
 mesh = ExtResource("1_l1hwv")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pieces/Chick"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Pieces/Chick"]
 shape = SubResource("ConvexPolygonShape3D_4yyfy")
 
-[node name="Elephant" type="Area3D" parent="Pieces"]
+[node name="Elephant" type="Area3D" parent="Board/Pieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1.5)
 script = ExtResource("6_l0043")
 
-[node name="MeshInstance" type="MeshInstance3D" parent="Pieces/Elephant"]
+[node name="MeshInstance" type="MeshInstance3D" parent="Board/Pieces/Elephant"]
 mesh = ExtResource("2_e8klm")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pieces/Elephant"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Pieces/Elephant"]
 shape = SubResource("ConvexPolygonShape3D_vwq1j")
 
-[node name="Lion" type="Area3D" parent="Pieces"]
+[node name="Lion" type="Area3D" parent="Board/Pieces"]
 transform = Transform3D(0.999962, -0.00872654, 0, 0.00872654, 0.999962, 0, 0, 0, 1, 0, 0, 1.5)
 script = ExtResource("8_e26gx")
 
-[node name="MeshInstance" type="MeshInstance3D" parent="Pieces/Lion"]
+[node name="MeshInstance" type="MeshInstance3D" parent="Board/Pieces/Lion"]
 mesh = ExtResource("4_13474")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pieces/Lion"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Pieces/Lion"]
 shape = SubResource("ConvexPolygonShape3D_kussy")
 
-[node name="Giraffe" type="Area3D" parent="Pieces"]
+[node name="Giraffe" type="Area3D" parent="Board/Pieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1.5)
 script = ExtResource("9_qlqf1")
 
-[node name="MeshInstance" type="MeshInstance3D" parent="Pieces/Giraffe"]
+[node name="MeshInstance" type="MeshInstance3D" parent="Board/Pieces/Giraffe"]
 mesh = ExtResource("5_bn2c8")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pieces/Giraffe"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Pieces/Giraffe"]
 shape = SubResource("ConvexPolygonShape3D_neuns")

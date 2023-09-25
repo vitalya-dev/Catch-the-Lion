@@ -65,6 +65,8 @@ func handle_valid_move(grid_pos):
 func handle_destination_piece(destination_piece):
 	var captured_pieces_area = captured_pieces_area_1 if selected_piece.player == Piece.Player.PLAYER_1 else captured_pieces_area_2
 	captured_pieces_area.add_piece(destination_piece)
+	if destination_piece is ChickHen and destination_piece.state == ChickHen.State.HEN:
+		destination_piece.demote_to_chick()
 
 func check_promotion():
 	var grid_pos = board.get_piece_grid_position(selected_piece)

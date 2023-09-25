@@ -8,7 +8,7 @@ Absolutely, let's update that step to reflect your progress. Here's your updated
 	2. Create Movement Functions: Write functions for each type of movement. [Done]
 	3. Check for Legal Moves: Before a piece is moved, check if the move is legal. [Done]
 	4. Handle Piece Capture: If a piece moves to a square occupied by an opponent’s piece, that piece is captured and removed from the board. [Done]
-	5. Implement Promotion: In Dōbutsu shōgi, a chick is promoted to a hen when it moves to the farthest row. The hen can move one square in any direction.
+	5. Implement Promotion: In Dōbutsu shōgi, a chick is promoted to a hen when it moves to the farthest row. The hen can move one square in any direction. [Done]
 	6. Link Movements to User Input: When a player clicks or taps on a piece and then on a destination square, the game should move the piece accordingly. [Done]
 	7. Handle Captured Pieces: Implement a system for players to bring captured pieces back into play on their side of the board. [Done]
 5. Implement Game Logic: Implement the game logic, including win/loss conditions and turn handling.

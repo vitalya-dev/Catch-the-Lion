@@ -9,10 +9,20 @@ var current_turn = Piece.Player.PLAYER_2
 @onready var captured_pieces_area_1 = $CapturedPieces/Player1
 @onready var captured_pieces_area_2 = $CapturedPieces/Player2
 
+# At the top of your script
+var dialog_box = null
+
 func _ready():
+	dialog_box = preload("res://scenes/DialogBox.tscn").instantiate()
+	add_child(dialog_box)
+	dialog_box.restart_game.connect(_on_dialog_box_restart_game)
+	dialog_box.hide()
 	print_tree_pretty()
 	board.board_clicked.connect(_on_board_clicked)
 	_connect_piece_signals()
+
+func _on_dialog_box_restart_game():
+	pass
 
 func _connect_piece_signals():
 	for piece in board.get_pieces():
@@ -41,6 +51,28 @@ func _place_captured_piece_on_board(grid_pos):
 	else:
 		board.add_piece(selected_piece)  # Add the piece to the board
 		move_piece_and_check_promotion(grid_pos)
+
+func check_win_conditions():
+	var player_1_lion_exists = false
+	var player_2_lion_exists = false
+
+	for piece in board.get_pieces():
+		if piece is Lion:
+			if piece.player == Piece.Player.PLAYER_1:
+				player_1_lion_exists = true
+				if board.get_piece_grid_position(piece).y == 3:
+					dialog_box.show_message("Player 1 Wins by Invasion!")
+					return
+			elif piece.player == Piece.Player.PLAYER_2:
+				player_2_lion_exists = true
+				if board.get_piece_grid_position(piece).y == 0:
+					dialog_box.show_message("Player 2 Wins by Invasion!")
+					return
+	if not player_1_lion_exists:
+		dialog_box.show_message("Player 2 Wins by Capturing the Lion!")
+	elif not player_2_lion_exists:
+		dialog_box.show_message("Player 1 Wins by Capturing the Lion!")
+
 
 func _move_selected_piece_to_grid_position(grid_pos):
 	var move = calculate_move(grid_pos)
@@ -92,6 +124,7 @@ func switch_turns():
 
 func end_turn():
 	_on_piece_clicked(selected_piece)
+	check_win_conditions()
 	switch_turns()
 
 func _on_piece_clicked(piece):

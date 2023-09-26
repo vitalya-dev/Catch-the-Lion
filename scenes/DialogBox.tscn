@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3o2fe6yn4i62"]
+
+[ext_resource type="Script" path="res://scripts/DialogBox.gd" id="1_tkyjf"]
+
+[node name="DialogBox" type="ColorRect"]
+anchors_preset = -1
+anchor_right = 0.452257
+anchor_bottom = 0.0370371
+offset_left = 327.0
+offset_top = 241.0
+offset_right = 296.0
+offset_bottom = 312.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.215686)
+script = ExtResource("1_tkyjf")
+metadata/_edit_use_anchors_ = true
+
+[node name="Message" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 52.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -34.0
+offset_right = 147.0
+offset_bottom = -3.0
+grow_vertical = 0
+text = "Restart"

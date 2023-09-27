@@ -14,3 +14,7 @@ config/name="Catch the Lion"
 run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+DialogBox="*res://scenes/DialogBox.tscn"

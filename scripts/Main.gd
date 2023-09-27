@@ -9,20 +9,10 @@ var current_turn = Piece.Player.PLAYER_2
 @onready var captured_pieces_area_1 = $CapturedPieces/Player1
 @onready var captured_pieces_area_2 = $CapturedPieces/Player2
 
-# At the top of your script
-var dialog_box = null
-
 func _ready():
-	dialog_box = preload("res://scenes/DialogBox.tscn").instantiate()
-	add_child(dialog_box)
-	dialog_box.restart_game.connect(_on_dialog_box_restart_game)
-	dialog_box.hide()
 	print_tree_pretty()
 	board.board_clicked.connect(_on_board_clicked)
 	_connect_piece_signals()
-
-func _on_dialog_box_restart_game():
-	pass
 
 func _connect_piece_signals():
 	for piece in board.get_pieces():
@@ -61,18 +51,17 @@ func check_win_conditions():
 			if piece.player == Piece.Player.PLAYER_1:
 				player_1_lion_exists = true
 				if board.get_piece_grid_position(piece).y == 3:
-					dialog_box.show_message("Player 1 Wins by Invasion!")
+					await DialogBox.show_message("Player 1 Wins by Invasion!")
 					return
 			elif piece.player == Piece.Player.PLAYER_2:
 				player_2_lion_exists = true
 				if board.get_piece_grid_position(piece).y == 0:
-					dialog_box.show_message("Player 2 Wins by Invasion!")
+					await DialogBox.show_message("Player 2 Wins by Invasion!")
 					return
 	if not player_1_lion_exists:
-		dialog_box.show_message("Player 2 Wins by Capturing the Lion!")
+		await DialogBox.show_message("Player 2 Wins by Capturing the Lion!")
 	elif not player_2_lion_exists:
-		dialog_box.show_message("Player 1 Wins by Capturing the Lion!")
-
+		await DialogBox.show_message("Player 1 Wins by Capturing the Lion!")
 
 func _move_selected_piece_to_grid_position(grid_pos):
 	var move = calculate_move(grid_pos)
@@ -107,11 +96,9 @@ func check_promotion():
 	if is_chick and reached_farthest_row:
 		selected_piece.promote_to_hen()
 
-
 func move_piece(grid_pos):
 	selected_piece.global_transform.origin = board.grid_to_global(grid_pos)
 	selected_piece.transform.origin.y = 0
-
 
 func switch_turns():
 	current_turn = Piece.Player.PLAYER_2 if current_turn == Piece.Player.PLAYER_1 else Piece.Player.PLAYER_1

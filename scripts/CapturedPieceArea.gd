@@ -11,7 +11,6 @@ func add_piece(piece):
 	piece.get_parent().remove_child(piece)
 	self.add_child(piece)
 
-	piece.player = -piece.player
 	piece.rotate_y(deg_to_rad(180))
 	
 	layout_pieces()

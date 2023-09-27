@@ -23,3 +23,8 @@ func demote_to_chick():
 func highlight(select):
 	super.highlight(select)
 	mesh.get_active_material(1).albedo_color = original_color.lerp(Color.BLACK, 0.5) if select else original_color
+
+
+func reset():
+	super.reset()
+	state = State.CHICK

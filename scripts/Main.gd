@@ -52,16 +52,20 @@ func check_win_conditions():
 				player_1_lion_exists = true
 				if board.get_piece_grid_position(piece).y == 3:
 					await DialogBox.show_message("Player 1 Wins by Invasion!")
+					reset_game()
 					return
 			elif piece.player == Piece.Player.PLAYER_2:
 				player_2_lion_exists = true
 				if board.get_piece_grid_position(piece).y == 0:
 					await DialogBox.show_message("Player 2 Wins by Invasion!")
+					reset_game()
 					return
 	if not player_1_lion_exists:
 		await DialogBox.show_message("Player 2 Wins by Capturing the Lion!")
+		reset_game()
 	elif not player_2_lion_exists:
 		await DialogBox.show_message("Player 1 Wins by Capturing the Lion!")
+		reset_game()
 
 func _move_selected_piece_to_grid_position(grid_pos):
 	var move = calculate_move(grid_pos)
@@ -88,6 +92,27 @@ func handle_destination_piece(destination_piece):
 	captured_pieces_area.add_piece(destination_piece)
 	if destination_piece is ChickHen and destination_piece.state == ChickHen.State.HEN:
 		destination_piece.demote_to_chick()
+
+func reset_game():
+	reset_pieces()
+	reset_turn()
+	deselect_piece()
+
+func reset_pieces():
+	for piece in board.get_pieces():
+		piece.reset()
+	for piece in captured_pieces_area_1.get_children():
+		piece.reset()
+	for piece in captured_pieces_area_2.get_children():
+		piece.reset()
+
+func reset_turn():
+	current_turn = Piece.Player.PLAYER_2
+	for piece in board.get_pieces():
+		piece.set_input_ray_pickable(piece.player == current_turn)
+
+func deselect_piece():
+	selected_piece = null
 
 func check_promotion():
 	var grid_pos = board.get_piece_grid_position(selected_piece)

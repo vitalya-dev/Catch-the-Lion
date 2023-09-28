@@ -140,6 +140,36 @@ func switch_turns():
 		piece.set_input_ray_pickable(piece.player == current_turn)
 	for piece in captured_pieces_area_2.get_children():
 		piece.set_input_ray_pickable(piece.player == current_turn)
+	if current_turn == Piece.Player.PLAYER_1:  # If it's AI's turn, make a move:
+		ai_turn()
+
+func ai_turn():
+	var move_made = false
+	while not move_made:
+		selected_piece = _select_random_piece(Piece.Player.PLAYER_1)
+		move_made = _try_random_moves_for_piece(selected_piece)
+
+func _select_random_piece(player):
+	var player_pieces = [piece for piece in board.get_pieces() if piece.player == player]
+	return player_pieces[randi() % player_pieces.size()]
+
+func _try_random_moves_for_piece(piece):
+	var possible_moves = piece.get_possible_moves()
+	while possible_moves.size() > 0:
+		var move_offset_index = randi() % possible_moves.size()
+		var move_offset = possible_moves[move_offset_index]
+		var move_to_make = board.get_piece_grid_position(piece) + move_offset
+
+		if is_valid_move(move_to_make):
+			_handle_selected_piece(move_to_make)
+			return true
+
+		possible_moves.remove(move_offset_index)
+	print("Selected piece has no valid moves. Selecting a new piece.")
+	return false
+
+
+
 
 func end_turn():
 	_on_piece_clicked(selected_piece)
@@ -147,7 +177,7 @@ func end_turn():
 	switch_turns()
 
 func _on_piece_clicked(piece):
-	if piece.player == current_turn:
+	if piece.player == current_turn and current_turn == Piece.Player.PLAYER_2:
 		if selected_piece:
 			selected_piece.highlight(false)
 		if selected_piece == piece:

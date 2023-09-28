@@ -13,11 +13,11 @@ func _ready():
 	print_tree_pretty()
 	board.board_clicked.connect(_on_board_clicked)
 	_connect_piece_signals()
+	update_piece_pickability()
 
 func _connect_piece_signals():
 	for piece in board.get_pieces():
 		piece.piece_clicked.connect(_on_piece_clicked)
-		piece.set_input_ray_pickable(piece.player == current_turn)
 
 func _on_board_clicked(grid_pos):
 	if selected_piece:
@@ -106,10 +106,17 @@ func reset_pieces():
 	for piece in captured_pieces_area_2.get_children():
 		piece.reset()
 
+
+func update_piece_pickability():
+	for piece in board.get_pieces():
+		piece.set_input_ray_pickable(piece.player == current_turn)
+
+
+
 func reset_turn():
 	current_turn = Piece.Player.PLAYER_2
 	for piece in board.get_pieces():
-		piece.set_input_ray_pickable(piece.player == current_turn)
+		update_piece_pickability()
 
 func deselect_piece():
 	selected_piece = null

@@ -4,6 +4,10 @@ class_name Board
 
 signal board_clicked
 
+const BOARD_WIDTH = 3
+const BOARD_HEIGHT = 4
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	input_event.connect(_on_board_clicked)
@@ -12,6 +16,9 @@ func _on_board_clicked(camera, event, position, normal, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var grid_pos = global_to_grid(position)
 		board_clicked.emit(grid_pos)
+
+func is_within_bounds(grid_pos):
+	return 0 <= grid_pos.x and grid_pos.x < BOARD_WIDTH and 0 <= grid_pos.y and grid_pos.y < BOARD_HEIGHT
 
 func get_piece_grid_position(piece):
 	return global_to_grid(piece.global_transform.origin)

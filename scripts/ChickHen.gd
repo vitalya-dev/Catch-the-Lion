@@ -28,3 +28,9 @@ func highlight(select):
 func reset():
 	super.reset()
 	state = State.CHICK
+
+func get_type():
+	if state == State.CHICK:
+		return "Chick"
+	else:
+		return "Hen"

@@ -15,6 +15,7 @@ func _ready():
 	board.board_clicked.connect(_on_board_clicked)
 	_connect_piece_signals()
 	update_piece_pickability()
+	print(board.get_board_model())
 
 func _connect_piece_signals():
 	for piece in board.get_pieces():

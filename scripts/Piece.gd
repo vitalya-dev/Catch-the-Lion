@@ -56,3 +56,6 @@ func set_input_ray_pickable(enabled):
 
 func get_possible_moves():
 	return [Vector2(0, 0)]
+
+func get_type():
+	return ""

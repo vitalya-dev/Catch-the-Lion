@@ -49,6 +49,22 @@ func add_piece(piece):
 	piece.get_parent().remove_child(piece)
 	get_node("Pieces").add_child(piece)
 
+func get_board_model():
+	var model = []
+	for i in range(BOARD_HEIGHT):
+		var row = []
+		for j in range(BOARD_WIDTH):
+			var piece = get_piece_at_grid_position(Vector2(j, i))
+			if piece:
+				# If there's a piece at this position, add its type and player to the model
+				row.append({"type": piece.get_type(), "player": piece.player})
+			else:
+				# If there's no piece at this position, add null to the model
+				row.append(null)
+		model.append(row)
+	return model
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

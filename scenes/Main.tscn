@@ -301,3 +301,5 @@ script = ExtResource("16_24aqx")
 [node name="Player2" type="Node3D" parent="CapturedPieces"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0.5)
 script = ExtResource("16_24aqx")
+
+[node name="AI" type="Node" parent="."]

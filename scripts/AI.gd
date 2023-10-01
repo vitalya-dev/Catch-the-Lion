@@ -8,14 +8,16 @@ func ai_turn(board_model):
 
 	for possible_move in all_possible_moves(board_model, 1):
 		var new_board_model = simulate_move(board_model, possible_move)
-		var score = minimax(new_board_model, 0, 1)
+		var score = minimax(new_board_model, 0, -1)
+		print("Possible move: ", possible_move, " Score: ", score)
 		if score > best_score:
 			best_score = score
 			move = possible_move
 
+	print("Best move: ", move, " Best score: ", best_score)
 	return move
 
-func minimax(board_model, depth, player):
+func minimax(board_model, depth, player, alpha=-infinity, beta=infinity):
 	if depth == 0 or game_over(board_model):
 		return static_evaluation(board_model)
 
@@ -23,15 +25,19 @@ func minimax(board_model, depth, player):
 
 	for possible_move in all_possible_moves(board_model, player):
 		var new_board_model = simulate_move(board_model, possible_move)
-		var score = minimax(new_board_model, depth - 1, -player)
+		var score = minimax(new_board_model, depth - 1, -player, alpha, beta)
+		print("Move: ", possible_move, " Score: ", score)
 		if player == 1:
 			best_score = max(score, best_score)
+			alpha = max(alpha, best_score)
 		else:
 			best_score = min(score, best_score)
+			beta = min(beta, best_score)
+
+		if beta <= alpha:
+			break
 
 	return best_score
-
-
 
 func all_possible_moves(board_model, player):
 	var possible_moves = []

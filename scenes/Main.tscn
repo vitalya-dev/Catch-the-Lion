@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b7hgg3b2gex8p"]
+[gd_scene load_steps=38 format=3 uid="uid://b7hgg3b2gex8p"]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_2phso"]
 [ext_resource type="Script" path="res://scripts/Board.gd" id="2_ca0ym"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://css3uei6cnpmy" path="res://assets/images/HenTexture.png" id="13_fq50b"]
 [ext_resource type="Texture2D" uid="uid://hrw3kh7gtq6r" path="res://assets/images/GiraffeTexture.png" id="15_pj6xp"]
 [ext_resource type="Script" path="res://scripts/CapturedPieceArea.gd" id="16_24aqx"]
+[ext_resource type="Script" path="res://scripts/AI.gd" id="17_alvv4"]
 
 [sub_resource type="Environment" id="Environment_r2c78"]
 background_mode = 1
@@ -303,3 +304,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0.5)
 script = ExtResource("16_24aqx")
 
 [node name="AI" type="Node" parent="."]
+script = ExtResource("17_alvv4")

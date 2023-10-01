@@ -3,13 +3,14 @@ extends Node
 const infinity = 1e9
 
 func ai_turn(board_model):
+	print("Board model: ", board_model_to_string(board_model))  # Debugging line
 	var best_score = -infinity
 	var move = null
 
 	for possible_move in all_possible_moves(board_model, 1):
 		var new_board_model = simulate_move(board_model, possible_move)
-		var score = minimax(new_board_model, 0, -1)
-		print("Possible move: ", possible_move, " Score: ", score)
+		var score = minimax(new_board_model, 2, -1)
+		print("New board model after move ", possible_move, " with score ", score, ": ", board_model_to_string(new_board_model))  # Debugging line
 		if score > best_score:
 			best_score = score
 			move = possible_move
@@ -26,7 +27,6 @@ func minimax(board_model, depth, player, alpha=-infinity, beta=infinity):
 	for possible_move in all_possible_moves(board_model, player):
 		var new_board_model = simulate_move(board_model, possible_move)
 		var score = minimax(new_board_model, depth - 1, -player, alpha, beta)
-		print("Move: ", possible_move, " Score: ", score)
 		if player == 1:
 			best_score = max(score, best_score)
 			alpha = max(alpha, best_score)
@@ -81,10 +81,15 @@ func get_piece_moves(piece, pos, board_model):
 
 	return moves
 
+func deep_copy_board_model(board_model):
+	var new_board_model = []
+	for row in board_model:
+		new_board_model.append(row.duplicate())
+	return new_board_model
 
 
 func simulate_move(board_model, move):
-	var new_board_model = board_model.duplicate()
+	var new_board_model = deep_copy_board_model(board_model)
 	var piece = move["piece"]
 	var start_pos = move["start_pos"]
 	var end_pos = move["end_pos"]
@@ -131,3 +136,24 @@ func game_over(board_model):
 		return true
 
 	return false
+
+
+func board_model_to_string(board_model):
+	var board_string = "\n"
+	for i in range(len(board_model)):
+		var row = ""
+		for j in range(len(board_model[i])):
+			var piece = board_model[i][j]
+			if piece:
+				var piece_string = piece["type"] + "(" + str(piece["player"]) + ")"
+				row += center_string(piece_string, 15)  # Pad the string with spaces on the right to ensure it's 15 characters long
+			else:
+				row += center_string("Empty", 15)  # Pad the string "Empty" with spaces on the right to ensure it's 15 characters long
+		board_string += row + "\n"
+	return board_string
+
+func center_string(s, width):
+	var padding = max(0, width - s.length())
+	var left_padding = padding / 2
+	var right_padding = padding - left_padding
+	return " ".lpad(left_padding) + s + " ".rpad(right_padding)

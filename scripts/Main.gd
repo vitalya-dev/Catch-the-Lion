@@ -9,13 +9,14 @@ var current_turn = Piece.Player.PLAYER_2
 @onready var captured_pieces_area_1 = $CapturedPieces/Player1
 @onready var captured_pieces_area_2 = $CapturedPieces/Player2
 
+@onready var ai = $AI
+
 # Initialization and Connection Functions
 func _ready():
 	print_tree_pretty()
 	board.board_clicked.connect(_on_board_clicked)
 	_connect_piece_signals()
 	update_piece_pickability()
-	print(board.get_board_model())
 
 func _connect_piece_signals():
 	for piece in board.get_pieces():
@@ -163,36 +164,11 @@ func update_piece_pickability():
 # AI Functions
 func ai_turn():
 	print("AI's turn starts")
-	var move_made = false
-	while not move_made:
-		selected_piece = _select_random_piece(Piece.Player.PLAYER_1)
-		print("AI selected piece: ", selected_piece)
-		move_made = try_random_moves_for_selected_piece()
-		print("Move made: ", move_made)
+	var board_model = board.get_board_model()
+	var best_move = ai.ai_turn(board_model)
+	if best_move:
+		selected_piece = board.get_piece_at_grid_position(best_move["start_pos"])
+		_process_selected_piece_move(best_move["end_pos"])
+	else:
+		print("No valid moves found for AI")
 
-func _select_random_piece(player):
-	var player_pieces = []
-	for piece in board.get_pieces():
-		if piece.player == player:
-			player_pieces.append(piece)
-	return player_pieces[randi() % player_pieces.size()]
-
-
-func try_random_moves_for_selected_piece():
-	print("Trying random moves")
-	var possible_moves = selected_piece.get_possible_moves()
-	print("Possible moves: ", possible_moves)
-	while possible_moves.size() > 0:
-		var move_offset_index = randi() % possible_moves.size()
-		var move_offset = possible_moves[move_offset_index]
-		print("Trying move: ", move_offset)
-		if is_valid_move(move_offset):
-			print("Move is valid")
-			var move_to_make = board.get_piece_grid_position(selected_piece) + move_offset
-			_process_selected_piece_move(move_to_make)
-			return true
-		else:
-			print("Move is not valid")
-		possible_moves.remove_at(move_offset_index)
-	print("Selected piece has no valid moves. Selecting a new piece.")
-	return false

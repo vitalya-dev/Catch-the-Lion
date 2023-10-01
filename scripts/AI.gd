@@ -9,7 +9,7 @@ func ai_turn(board_model):
 
 	for possible_move in all_possible_moves(board_model, 1):
 		var new_board_model = simulate_move(board_model, possible_move)
-		var score = minimax(new_board_model, 2, -1)
+		var score = minimax(new_board_model, 1, -1)
 		print("New board model after move ", possible_move, " with score ", score, ": ", board_model_to_string(new_board_model))  # Debugging line
 		if score > best_score:
 			best_score = score
@@ -101,15 +101,19 @@ func simulate_move(board_model, move):
 
 func static_evaluation(board_model):
 	var score = 0
+	var piece_values = {"Lion": 100, "Giraffe": 5, "Elephant": 5, "Chick": 1, "Hen": 10}
+
 	for i in range(len(board_model)):
 		for j in range(len(board_model[i])):
 			var piece = board_model[i][j]
 			if piece:
+				var value = piece_values[piece["type"]]
 				if piece["player"] == 1:
-					score += 1
+					score += value
 				else:
-					score -= 1
+					score -= value
 	return score
+
 
 func is_within_board(pos, board_model):
 	return pos.y >= 0 and pos.y < len(board_model) and pos.x >= 0 and pos.x < len(board_model[0])

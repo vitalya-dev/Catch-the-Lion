@@ -8,14 +8,14 @@ func ai_turn(board_model):
 	var move = null
 
 	for possible_move in all_possible_moves(board_model, 1):
+		print("AI considering move: ", possible_move)
 		var new_board_model = simulate_move(board_model, possible_move)
+		print(board_model_to_string(new_board_model)
 		var score = minimax(new_board_model, 1, -1)
-		print("New board model after move ", possible_move, " with score ", score, ": ", board_model_to_string(new_board_model))  # Debugging line
 		if score > best_score:
 			best_score = score
 			move = possible_move
-
-	print("Best move: ", move, " Best score: ", best_score)
+	print("So AI best move: ", move, " with score: ", best_score)
 	return move
 
 func minimax(board_model, depth, player, alpha=-infinity, beta=infinity):
@@ -23,21 +23,28 @@ func minimax(board_model, depth, player, alpha=-infinity, beta=infinity):
 		return static_evaluation(board_model)
 
 	var best_score = -infinity if player == 1 else infinity
+	var best_move = null
 
 	for possible_move in all_possible_moves(board_model, player):
 		var new_board_model = simulate_move(board_model, possible_move)
 		var score = minimax(new_board_model, depth - 1, -player, alpha, beta)
-		if player == 1:
-			best_score = max(score, best_score)
+		print("On that move player can answer ", possible_move, " with score ", score)
+		if player == 1 and score > best_score:
+			best_score = score
+			best_move = possible_move
 			alpha = max(alpha, best_score)
-		else:
-			best_score = min(score, best_score)
+		elif player == -1 and score < best_score:
+			best_score = score
+			best_move = possible_move
 			beta = min(beta, best_score)
 
 		if beta <= alpha:
+			print("Pruning branches")  # Debugging line
 			break
 
+	print("So Player best answer is: ", best_move, " with score: ", best_score)
 	return best_score
+
 
 func all_possible_moves(board_model, player):
 	var possible_moves = []

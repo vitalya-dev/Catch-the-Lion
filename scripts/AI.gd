@@ -10,7 +10,7 @@ func ai_turn(board_model):
 	for possible_move in all_possible_moves(board_model, 1):
 		print("AI considering move: ", possible_move)
 		var new_board_model = simulate_move(board_model, possible_move)
-		print(board_model_to_string(new_board_model)
+		print(board_model_to_string(new_board_model))
 		var score = minimax(new_board_model, 1, -1)
 		if score > best_score:
 			best_score = score
@@ -27,8 +27,8 @@ func minimax(board_model, depth, player, alpha=-infinity, beta=infinity):
 
 	for possible_move in all_possible_moves(board_model, player):
 		var new_board_model = simulate_move(board_model, possible_move)
+		print("On that move player can answer ", possible_move)
 		var score = minimax(new_board_model, depth - 1, -player, alpha, beta)
-		print("On that move player can answer ", possible_move, " with score ", score)
 		if player == 1 and score > best_score:
 			best_score = score
 			best_move = possible_move
@@ -72,7 +72,7 @@ func get_piece_moves(piece, pos, board_model):
 	elif piece["type"] == "Lion":
 		directions = [Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1), Vector2(-1, 0), Vector2(1, 0), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1)]
 	elif piece["type"] == "Chick":
-		directions = [Vector2(0, -1)] if piece["player"] == 1 else [Vector2(0, 1)]
+		directions = [Vector2(0, 1)] if piece["player"] == 1 else [Vector2(0, -1)]
 	elif piece["type"] == "Hen":
 		if piece["player"] == 1:
 			directions =  [Vector2(0, 1), Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1),  Vector2(-1, 1), Vector2(1, 1)]
@@ -139,20 +139,33 @@ func game_over(board_model):
 					lion2_pos = Vector2(j, i)
 
 	# Check if either lion has been captured
-	if not lion1_pos or not lion2_pos:
+	if lion1_pos == null or lion2_pos == null:
+		print("Lion has been captured ", lion1_pos, lion2_pos)
 		return true
 
 	# Check if a lion has reached the opponent's den
 	if lion1_pos.y == len(board_model) - 1 or lion2_pos.y == 0:
+		print("Lion has reached the opponent's den ", lion1_pos, lion2_pos)
 		return true
 
 	return false
 
 
+func generate_spaces(length):
+	var spaces = ""
+	for i in range(length):
+		spaces += " "
+	return spaces
+
 func board_model_to_string(board_model):
 	var board_string = "\n"
+	var spaces = generate_spaces(15)
+	board_string += spaces
+	for i in range(len(board_model[0])):
+		board_string += center_string(str(i), 15)
+	board_string += "\n"
 	for i in range(len(board_model)):
-		var row = ""
+		var row = center_string(str(i), 15)
 		for j in range(len(board_model[i])):
 			var piece = board_model[i][j]
 			if piece:

@@ -107,18 +107,13 @@ func deep_copy_board_model(board_model):
 		new_board_model.append(row.duplicate())
 	return new_board_model
 
-
-func is_chick(piece):
-	return piece["type"] == "Chick"
-
-func ai_reached_last_row(piece, end_pos, board_model):
-	return piece["player"] == 1 and end_pos.y == len(board_model) - 1
-
-func player_reached_first_row(piece, end_pos):
-	return piece["player"] == -1 and end_pos.y == 0
-
 func should_promote_to_hen(piece, end_pos, board_model):
-	return is_chick(piece) and (ai_reached_last_row(piece, end_pos, board_model) or player_reached_first_row(piece, end_pos))
+	var is_chick = piece["type"] == "Chick"
+	var ai_reached_last_row = piece["player"] == 1 and end_pos.y == len(board_model) - 1
+	var player_reached_first_row = piece["player"] == -1 and end_pos.y == 0
+
+	return is_chick and (ai_reached_last_row or player_reached_first_row)
+
 
 func simulate_move(board_model, captured_pieces_model, move):
 	var new_board_model = deep_copy_board_model(board_model)

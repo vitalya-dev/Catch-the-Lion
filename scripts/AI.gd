@@ -108,10 +108,22 @@ func deep_copy_board_model(board_model):
 	return new_board_model
 
 
+func is_chick(piece):
+	return piece["type"] == "Chick"
+
+func ai_reached_last_row(piece, end_pos, board_model):
+	return piece["player"] == 1 and end_pos.y == len(board_model) - 1
+
+func player_reached_first_row(piece, end_pos):
+	return piece["player"] == -1 and end_pos.y == 0
+
+func should_promote_to_hen(piece, end_pos, board_model):
+	return is_chick(piece) and (ai_reached_last_row(piece, end_pos, board_model) or player_reached_first_row(piece, end_pos))
+
 func simulate_move(board_model, captured_pieces_model, move):
 	var new_board_model = deep_copy_board_model(board_model)
 	var new_captured_pieces_model = captured_pieces_model.duplicate()
-	var piece = move["piece"]
+	var piece = move["piece"].duplicate()  # Create a copy of the piece
 	var start_pos = move["start_pos"]
 	var end_pos = move["end_pos"]
 	
@@ -119,9 +131,14 @@ func simulate_move(board_model, captured_pieces_model, move):
 		new_board_model[start_pos.y][start_pos.x] = null
 	else:  # If the piece is in the captured area
 		new_captured_pieces_model.erase(piece)  # Remove the piece from the captured area
+
+	if should_promote_to_hen(piece, end_pos, new_board_model):
+		piece["type"] = "Hen"
+
 	new_board_model[end_pos.y][end_pos.x] = piece
 	
 	return {"board": new_board_model, "captured": new_captured_pieces_model}
+
 
 func static_evaluation(board_model):
 	var score = 0

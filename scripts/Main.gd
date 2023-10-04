@@ -168,8 +168,15 @@ func ai_turn():
 	var captured_pieces_model = captured_pieces_area_1.get_captured_pieces_model() + captured_pieces_area_2.get_captured_pieces_model()
 	var best_move = ai.ai_turn(board_model, captured_pieces_model)
 	if best_move:
-		selected_piece = board.get_piece_at_grid_position(best_move["start_pos"])
+		if best_move["start_pos"] == null:  # Piece is in the captured pieces area
+			for piece in captured_pieces_area_1.get_children() + captured_pieces_area_2.get_children():
+				if piece.get_type() == best_move["piece"]["type"] and piece.player == best_move["piece"]["player"]:
+					selected_piece = piece
+					break
+		else:  # Piece is on the board
+			selected_piece = board.get_piece_at_grid_position(best_move["start_pos"])
 		_process_selected_piece_move(best_move["end_pos"])
 	else:
 		print("No valid moves found for AI")
+
 

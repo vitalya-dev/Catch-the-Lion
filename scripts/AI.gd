@@ -2,33 +2,33 @@ extends Node
 
 const infinity = 1e9
 
-func ai_turn(board_model):
+func ai_turn(board_model, captured_pieces_model):
 	print("Board model: ", board_model_to_string(board_model))  # Debugging line
 	var best_score = -infinity
 	var move = null
 
-	for possible_move in all_possible_moves(board_model, 1):
+	for possible_move in all_possible_moves(board_model, captured_pieces_model, 1):
 		print("AI considering move: ", possible_move)
-		var new_board_model = simulate_move(board_model, possible_move)
+		var new_board_model, new_captured_pieces_model = simulate_move(board_model, captured_pieces_model, possible_move)
 		print(board_model_to_string(new_board_model))
-		var score = minimax(new_board_model, 1, -1)
+		var score = minimax(new_board_model, new_captured_pieces_model, 1, -1)
 		if score > best_score:
 			best_score = score
 			move = possible_move
 	print("So AI best move: ", move, " with score: ", best_score)
 	return move
 
-func minimax(board_model, depth, player, alpha=-infinity, beta=infinity):
+func minimax(board_model, captured_pieces_model, depth, player, alpha=-infinity, beta=infinity):
 	if depth == 0 or game_over(board_model):
 		return static_evaluation(board_model)
 
 	var best_score = -infinity if player == 1 else infinity
 	var best_move = null
 
-	for possible_move in all_possible_moves(board_model, player):
-		var new_board_model = simulate_move(board_model, possible_move)
+	for possible_move in all_possible_moves(board_model, captured_pieces_model, player):
+		var new_board_model, new_captured_pieces_model = simulate_move(board_model, captured_pieces_model, possible_move)
 		print("On that move player can answer ", possible_move)
-		var score = minimax(new_board_model, depth - 1, -player, alpha, beta)
+		var score = minimax(new_board_model, new_captured_pieces_model, depth - 1, -player, alpha, beta)
 		if player == 1 and score > best_score:
 			best_score = score
 			best_move = possible_move
@@ -46,7 +46,7 @@ func minimax(board_model, depth, player, alpha=-infinity, beta=infinity):
 	return best_score
 
 
-func all_possible_moves(board_model, player):
+func all_possible_moves(board_model, captured_pieces_model, player):
 	var possible_moves = []
 	for i in range(len(board_model)):
 		for j in range(len(board_model[i])):
@@ -59,6 +59,16 @@ func all_possible_moves(board_model, player):
 						"start_pos": Vector2(j, i),
 						"end_pos": move
 					})
+	for piece in captured_pieces_model:
+		if piece and piece["player"] == player:
+			for j in range(len(board_model)):
+				for k in range(len(board_model[j])):
+					if board_model[j][k] == null:  # Only consider empty cells
+						possible_moves.append({
+							"piece": piece,
+							"start_pos": null,  # Position where the piece is being placed
+							"end_pos": Vector2(k, j)
+						})				
 	return possible_moves
 
 func get_piece_moves(piece, pos, board_model):
@@ -95,16 +105,20 @@ func deep_copy_board_model(board_model):
 	return new_board_model
 
 
-func simulate_move(board_model, move):
+func simulate_move(board_model, captured_pieces_model, move):
 	var new_board_model = deep_copy_board_model(board_model)
+	var new_captured_pieces_model = captured_pieces_model.dublicate()
 	var piece = move["piece"]
 	var start_pos = move["start_pos"]
 	var end_pos = move["end_pos"]
 	
-	new_board_model[start_pos.y][start_pos.x] = null
+	if start_pos:  # If the piece is on the board
+		new_board_model[start_pos.y][start_pos.x] = null
+	else:  # If the piece is in the captured area
+		new_captured_pieces_model.erase(piece)  # Remove the piece from the captured area
 	new_board_model[end_pos.y][end_pos.x] = piece
 	
-	return new_board_model
+	return new_board_model, new_captured_pieces_model
 
 func static_evaluation(board_model):
 	var score = 0

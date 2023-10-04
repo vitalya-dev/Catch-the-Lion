@@ -115,7 +115,7 @@ func simulate_move(board_model, captured_pieces_model, move):
 	var start_pos = move["start_pos"]
 	var end_pos = move["end_pos"]
 	
-	if start_pos:  # If the piece is on the board
+	if start_pos != null:  # If the piece is on the board
 		new_board_model[start_pos.y][start_pos.x] = null
 	else:  # If the piece is in the captured area
 		new_captured_pieces_model.erase(piece)  # Remove the piece from the captured area

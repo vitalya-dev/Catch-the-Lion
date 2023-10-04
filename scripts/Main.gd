@@ -165,7 +165,8 @@ func update_piece_pickability():
 func ai_turn():
 	print("AI's turn starts")
 	var board_model = board.get_board_model()
-	var best_move = ai.ai_turn(board_model)
+	var captured_pieces_model = captured_pieces_area_1.get_captured_pieces_model() + captured_pieces_area_2.get_captured_pieces_model()
+	var best_move = ai.ai_turn(board_model, captured_pieces_model)
 	if best_move:
 		selected_piece = board.get_piece_at_grid_position(best_move["start_pos"])
 		_process_selected_piece_move(best_move["end_pos"])

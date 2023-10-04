@@ -9,7 +9,9 @@ func ai_turn(board_model, captured_pieces_model):
 
 	for possible_move in all_possible_moves(board_model, captured_pieces_model, 1):
 		print("AI considering move: ", possible_move)
-		var new_board_model, new_captured_pieces_model = simulate_move(board_model, captured_pieces_model, possible_move)
+		var result = simulate_move(board_model, captured_pieces_model, possible_move)
+		var new_board_model = result["board"]
+		var new_captured_pieces_model = result["captured"]
 		print(board_model_to_string(new_board_model))
 		var score = minimax(new_board_model, new_captured_pieces_model, 1, -1)
 		if score > best_score:
@@ -24,9 +26,10 @@ func minimax(board_model, captured_pieces_model, depth, player, alpha=-infinity,
 
 	var best_score = -infinity if player == 1 else infinity
 	var best_move = null
-
 	for possible_move in all_possible_moves(board_model, captured_pieces_model, player):
-		var new_board_model, new_captured_pieces_model = simulate_move(board_model, captured_pieces_model, possible_move)
+		var result = simulate_move(board_model, captured_pieces_model, possible_move)
+		var new_board_model = result["board"]
+		var new_captured_pieces_model = result["captured"]
 		print("On that move player can answer ", possible_move)
 		var score = minimax(new_board_model, new_captured_pieces_model, depth - 1, -player, alpha, beta)
 		if player == 1 and score > best_score:
@@ -107,7 +110,7 @@ func deep_copy_board_model(board_model):
 
 func simulate_move(board_model, captured_pieces_model, move):
 	var new_board_model = deep_copy_board_model(board_model)
-	var new_captured_pieces_model = captured_pieces_model.dublicate()
+	var new_captured_pieces_model = captured_pieces_model.duplicate()
 	var piece = move["piece"]
 	var start_pos = move["start_pos"]
 	var end_pos = move["end_pos"]
@@ -118,7 +121,7 @@ func simulate_move(board_model, captured_pieces_model, move):
 		new_captured_pieces_model.erase(piece)  # Remove the piece from the captured area
 	new_board_model[end_pos.y][end_pos.x] = piece
 	
-	return new_board_model, new_captured_pieces_model
+	return {"board": new_board_model, "captured": new_captured_pieces_model}
 
 func static_evaluation(board_model):
 	var score = 0

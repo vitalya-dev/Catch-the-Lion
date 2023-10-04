@@ -27,3 +27,13 @@ func layout_pieces():
 		piece.transform.origin.z = y * -1 * piece.player
 		piece.transform.origin.y = 0
 
+func get_captured_pieces_model():
+	var model = []
+	var num_captured_pieces = get_child_count()
+	for i in range(num_captured_pieces):
+		var piece = get_child(i)
+		# If there's a piece at this position, add its type and player to the model
+		model.append({"type": piece.get_type(), "player": piece.player})
+	return model
+
+

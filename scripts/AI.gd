@@ -137,7 +137,7 @@ func simulate_move(board_model, captured_pieces_model, move):
 
 func static_evaluation(board_model):
 	var score = 0
-	var piece_values = {"Lion": 100, "Giraffe": 5, "Elephant": 5, "Chick": 1, "Hen": 10}
+	var piece_values = {"Lion": 1000, "Giraffe": 5, "Elephant": 5, "Chick": 1, "Hen": 10}
 
 	for i in range(len(board_model)):
 		for j in range(len(board_model[i])):
@@ -146,8 +146,12 @@ func static_evaluation(board_model):
 				var value = piece_values[piece["type"]]
 				if piece["player"] == 1:
 					score += value
+					if piece["type"] == "Lion" and i == len(board_model) - 1: # Lion has reached the opponent's den
+						score += 1000
 				else:
 					score -= value
+					if piece["type"] == "Lion" and i == 0:  # Opponent's Lion has reached your den
+						score -= 1000
 	return score
 
 

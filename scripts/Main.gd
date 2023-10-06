@@ -101,21 +101,25 @@ func _handle_piece_click(piece):
 func check_win_conditions():
 	var player_1_lion_exists = false
 	var player_2_lion_exists = false
+	var lion_in_den = {Piece.Player.PLAYER_1: false, Piece.Player.PLAYER_2: false}
 
 	for piece in board.get_pieces():
 		if piece is Lion:
 			if piece.player == Piece.Player.PLAYER_1:
 				player_1_lion_exists = true
 				if board.get_piece_grid_position(piece).y == 3:
-					return Piece.Player.PLAYER_1
+					lion_in_den[Piece.Player.PLAYER_1] = true
 			elif piece.player == Piece.Player.PLAYER_2:
 				player_2_lion_exists = true
 				if board.get_piece_grid_position(piece).y == 0:
-					return Piece.Player.PLAYER_2
+					lion_in_den[Piece.Player.PLAYER_2] = true
 	if not player_1_lion_exists:
 		return Piece.Player.PLAYER_2
 	elif not player_2_lion_exists:
 		return Piece.Player.PLAYER_1
+	var opponent = -current_turn
+	if lion_in_den[opponent]:
+		return opponent
 	return null
 
 func reset_game():

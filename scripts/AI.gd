@@ -21,7 +21,7 @@ func ai_turn(board_model, captured_pieces_model):
 	return move
 
 func minimax(board_model, captured_pieces_model, depth, player, alpha=-infinity, beta=infinity):
-	if depth == 0 or game_over(board_model):
+	if depth == 0 or game_over(board_model, player):
 		return static_evaluation(board_model)
 
 	var best_score = -infinity if player == 1 else infinity
@@ -158,7 +158,7 @@ func static_evaluation(board_model):
 func is_within_board(pos, board_model):
 	return pos.y >= 0 and pos.y < len(board_model) and pos.x >= 0 and pos.x < len(board_model[0])
 
-func game_over(board_model):
+func game_over(board_model, player):
 	var lion1_pos = null
 	var lion2_pos = null
 
@@ -177,8 +177,11 @@ func game_over(board_model):
 		return true
 
 	# Check if a lion has reached the opponent's den
-	if lion1_pos.y == len(board_model) - 1 or lion2_pos.y == 0:
-		print("Lion has reached the opponent's den ", lion1_pos, lion2_pos)
+	if lion1_pos.y == len(board_model) - 1 and player == -1:
+		print("Lion has reached the opponent's den ", lion1_pos)
+		return true
+	if lion2_pos.y == 0 and player == 1:
+		print("Lion has reached the opponent's den ", lion2_pos)
 		return true
 
 	return false
